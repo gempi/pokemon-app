@@ -1,24 +1,38 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import "react-native-reanimated";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { RelayEnvironmentProvider } from "react-relay";
+import { Environment, FetchFunction, Network } from "relay-runtime";
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: "(tabs)",
 };
+
+const HTTP_ENDPOINT = "https://graphql-pokeapi.graphcdn.app/";
+
+const fetchGraphQL: FetchFunction = async (request, variables) => {
+  const resp = await fetch(HTTP_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: request.text, variables }),
+  });
+  if (!resp.ok) {
+    throw new Error("Response failed.");
+  }
+  return await resp.json();
+};
+
+const environment = new Environment({
+  network: Network.create(fetchGraphQL),
+});
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <RelayEnvironmentProvider environment={environment}>
+      <Stack />
+    </RelayEnvironmentProvider>
   );
 }
