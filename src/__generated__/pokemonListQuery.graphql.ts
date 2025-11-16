@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<028744782ee7c179bdce5ecab2561c6a>>
+ * @generated SignedSource<<306146ad7cad03c673889ae526123081>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,24 +9,23 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
-export type pokemonListPokemonsQuery$variables = {
+export type pokemonListQuery$variables = {
   limit?: number | null | undefined;
   offset?: number | null | undefined;
 };
-export type pokemonListPokemonsQuery$data = {
+export type pokemonListQuery$data = {
   readonly pokemons: {
-    readonly count: number | null | undefined;
-    readonly next: string | null | undefined;
     readonly nextOffset: number | null | undefined;
     readonly results: ReadonlyArray<{
       readonly _id: number | null | undefined;
+      readonly image: string | null | undefined;
       readonly name: string | null | undefined;
     } | null | undefined> | null | undefined;
   } | null | undefined;
 };
-export type pokemonListPokemonsQuery = {
-  response: pokemonListPokemonsQuery$data;
-  variables: pokemonListPokemonsQuery$variables;
+export type pokemonListQuery = {
+  response: pokemonListQuery$data;
+  variables: pokemonListQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -66,20 +65,6 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "count",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "next",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
         "name": "nextOffset",
         "storageKey": null
       },
@@ -104,6 +89,13 @@ v1 = [
             "kind": "ScalarField",
             "name": "name",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "image",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -117,7 +109,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "pokemonListPokemonsQuery",
+    "name": "pokemonListQuery",
     "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -126,20 +118,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "pokemonListPokemonsQuery",
+    "name": "pokemonListQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "e251f7aaa429f3ad59035b26cd278e4f",
+    "cacheID": "0904917c36ff21f5e514c88af7c12a96",
     "id": null,
     "metadata": {},
-    "name": "pokemonListPokemonsQuery",
+    "name": "pokemonListQuery",
     "operationKind": "query",
-    "text": "query pokemonListPokemonsQuery(\n  $limit: Int\n  $offset: Int\n) {\n  pokemons(limit: $limit, offset: $offset) {\n    count\n    next\n    nextOffset\n    results {\n      _id: id\n      name\n    }\n  }\n}\n"
+    "text": "query pokemonListQuery(\n  $limit: Int\n  $offset: Int\n) {\n  pokemons(limit: $limit, offset: $offset) {\n    nextOffset\n    results {\n      _id: id\n      name\n      image\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c76af5665d112f2ec84ff6b4a59b2e42";
+(node as any).hash = "0d914a2dfbe4ddcac3c66139143aa0d8";
 
 export default node;

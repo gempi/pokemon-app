@@ -1,5 +1,6 @@
 {
-  "src": "./components",
-  "schema": "./schema.graphql",
-  "language": "typescript"
+  "src": "./src",
+  "schema": "./data/schema.graphql",
+  "language": "typescript",
+  "artifactDirectory": "./src/__generated__"
 }

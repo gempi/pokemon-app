@@ -1,15 +1,8 @@
-directive @cacheControl(
-  maxAge: Int
-  scope: CacheControlScope
-) on FIELD_DEFINITION | OBJECT | INTERFACE
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
 
-"""
-Exposes a URL that specifies the behaviour of this scalar.
-"""
+"""Exposes a URL that specifies the behaviour of this scalar."""
 directive @specifiedBy(
-  """
-  The URL that specifies the behaviour of this scalar.
-  """
+  """The URL that specifies the behaviour of this scalar."""
   url: String!
 ) on SCALAR
 
@@ -167,9 +160,7 @@ type Type {
   type: BaseName
 }
 
-"""
-The `Upload` scalar type represents a file upload.
-"""
+"""The `Upload` scalar type represents a file upload."""
 scalar Upload
 
 type VersionDetail {
@@ -182,3 +173,4 @@ type VersionGroupDetail {
   move_learn_method: BaseName
   version_group: BaseName
 }
+

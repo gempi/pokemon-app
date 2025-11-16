@@ -8,23 +8,34 @@
    npm install
    ```
 
-2. Start the app
+2. Setup environment variables
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Start the app
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Schema update
+## Testing
 
 ```bash
-npx get-graphql-schema https://graphql-pokeapi.graphcdn.app/ > schema.graphql
+   npm run test
 ```
+
+## GraphQL schema update
+
+```bash
+npx get-graphql-schema https://graphql-pokeapi.graphcdn.app/ > data/schema.graphql
+```
+
+## Todo
+
+- [ ] Improve ui and ux
+- [ ] Split up components in detail view (e.g. abilities, stats etc.)
+- [ ] Add e2e tests (e.g. https://docs.expo.dev/eas/workflows/examples/e2e-tests/)
+- [ ] Add deployment process
+- [ ] Make app production ready (e.g. app.json etc.)

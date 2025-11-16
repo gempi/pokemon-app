@@ -1,16 +1,14 @@
-import { PokemonDetail } from "@/components/pokemon-detail";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack } from "expo-router";
 import { Suspense } from "react";
 import { ActivityIndicator, View } from "react-native";
+import { PokemonListScreen } from "../screens/pokemon-list";
 
-export default function PokemonDetailPage() {
-  const { pokemonName } = useLocalSearchParams();
-
+export default function PokemonList() {
   return (
     <>
       <Stack.Screen
         options={{
-          title: "Pokemon Detail",
+          title: "Pokemons",
         }}
       />
       <Suspense
@@ -22,7 +20,7 @@ export default function PokemonDetailPage() {
           </View>
         }
       >
-        <PokemonDetail pokemonName={String(pokemonName)} />
+        <PokemonListScreen />
       </Suspense>
     </>
   );
