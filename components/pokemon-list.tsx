@@ -9,12 +9,16 @@ import {
   View,
 } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay";
-import { pokemonListAllPokemonsQuery } from "./__generated__/pokemonListAllPokemonsQuery.graphql";
+import { pokemonListPokemonsQuery } from "./__generated__/pokemonListPokemonsQuery.graphql";
 
-const pokemonsQuery = graphql`
-  query pokemonListAllPokemonsQuery($limit: Int, $offset: Int) {
+const PAGE_SIZE = 20;
+const OFF_SET = 0;
+
+const pokemonListQuery = graphql`
+  query pokemonListPokemonsQuery($limit: Int, $offset: Int) {
     pokemons(limit: $limit, offset: $offset) {
       count
+      nextOffset
       results {
         _id: id
         name
@@ -24,7 +28,10 @@ const pokemonsQuery = graphql`
 `;
 
 export function PokemonList() {
-  const data = useLazyLoadQuery<pokemonListAllPokemonsQuery>(pokemonsQuery, {});
+  const data = useLazyLoadQuery<pokemonListPokemonsQuery>(pokemonListQuery, {
+    limit: PAGE_SIZE,
+    offset: OFF_SET,
+  });
 
   if (!data) {
     return (
