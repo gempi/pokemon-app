@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d1cdad70283cc207011a55d9fd5826d9>>
+ * @generated SignedSource<<028744782ee7c179bdce5ecab2561c6a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type pokemonListPokemonsQuery$variables = {
 export type pokemonListPokemonsQuery$data = {
   readonly pokemons: {
     readonly count: number | null | undefined;
+    readonly next: string | null | undefined;
     readonly nextOffset: number | null | undefined;
     readonly results: ReadonlyArray<{
       readonly _id: number | null | undefined;
@@ -72,6 +73,13 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
+        "name": "next",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "nextOffset",
         "storageKey": null
       },
@@ -122,16 +130,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "88831d24f0346e31d048ce4ea7079353",
+    "cacheID": "e251f7aaa429f3ad59035b26cd278e4f",
     "id": null,
     "metadata": {},
     "name": "pokemonListPokemonsQuery",
     "operationKind": "query",
-    "text": "query pokemonListPokemonsQuery(\n  $limit: Int\n  $offset: Int\n) {\n  pokemons(limit: $limit, offset: $offset) {\n    count\n    nextOffset\n    results {\n      _id: id\n      name\n    }\n  }\n}\n"
+    "text": "query pokemonListPokemonsQuery(\n  $limit: Int\n  $offset: Int\n) {\n  pokemons(limit: $limit, offset: $offset) {\n    count\n    next\n    nextOffset\n    results {\n      _id: id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8bae5f95810c6298496ff4b27397fb7a";
+(node as any).hash = "c76af5665d112f2ec84ff6b4a59b2e42";
 
 export default node;

@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React from "react";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -11,13 +11,17 @@ import {
 import { graphql, useLazyLoadQuery } from "react-relay";
 import { pokemonListPokemonsQuery } from "./__generated__/pokemonListPokemonsQuery.graphql";
 
-const PAGE_SIZE = 20;
-const OFF_SET = 0;
+type Pokemon = NonNullable<
+  NonNullable<pokemonListPokemonsQuery["response"]["pokemons"]>["results"]
+>[number];
+
+const LIMIT = 20;
 
 const pokemonListQuery = graphql`
   query pokemonListPokemonsQuery($limit: Int, $offset: Int) {
     pokemons(limit: $limit, offset: $offset) {
       count
+      next
       nextOffset
       results {
         _id: id
@@ -28,10 +32,35 @@ const pokemonListQuery = graphql`
 `;
 
 export function PokemonList() {
+  const [offset, setOffset] = useState(0);
+  const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   const data = useLazyLoadQuery<pokemonListPokemonsQuery>(pokemonListQuery, {
-    limit: PAGE_SIZE,
-    offset: OFF_SET,
+    limit: LIMIT,
+    offset,
   });
+
+  useEffect(() => {
+    if (data?.pokemons?.results) {
+      const results = data.pokemons.results ?? [];
+      if (offset === 0) {
+        setAllPokemons([...results]);
+      } else {
+        setAllPokemons((prev) => [...prev, ...results]);
+      }
+      setIsLoadingMore(false);
+    }
+  }, [data, offset]);
+
+  const hasMore = !!data?.pokemons?.next;
+
+  const handleLoadMore = () => {
+    if (hasMore && !isLoadingMore && data?.pokemons?.nextOffset) {
+      setIsLoadingMore(true);
+      setOffset(data.pokemons.nextOffset);
+    }
+  };
 
   if (!data) {
     return (
@@ -41,9 +70,7 @@ export function PokemonList() {
     );
   }
 
-  const pokemons = data.pokemons?.results ?? [];
-
-  if (pokemons.length === 0) {
+  if (allPokemons.length === 0) {
     return (
       <View style={styles.center}>
         <Text style={styles.emptyText}>No pokemons found.</Text>
@@ -53,7 +80,7 @@ export function PokemonList() {
 
   return (
     <FlatList
-      data={pokemons}
+      data={allPokemons}
       keyExtractor={(item) => String(item?._id)}
       renderItem={({ item }) => (
         <Pressable
@@ -70,7 +97,7 @@ export function PokemonList() {
       )}
       contentContainerStyle={styles.list}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
-      onEndReached={() => console.log("On reach end")}
+      onEndReached={handleLoadMore}
     />
   );
 }
