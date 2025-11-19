@@ -1,6 +1,6 @@
+import { pokemonDetailQuery } from "@/src/__generated__/pokemonDetailQuery.graphql";
 import { PokemonDetail } from "@/src/components/pokemon-detail";
 import { graphql, useLazyLoadQuery } from "react-relay";
-import { pokemonDetailQuery } from "../__generated__/pokemonDetailQuery.graphql";
 
 const PokemonDetailQuery = graphql`
   query pokemonDetailQuery($name: String!) {
@@ -24,12 +24,7 @@ const PokemonDetailQuery = graphql`
           name
         }
       }
-      abilities {
-        ability {
-          name
-        }
-        is_hidden
-      }
+      ...abilities_pokemon
     }
   }
 `;

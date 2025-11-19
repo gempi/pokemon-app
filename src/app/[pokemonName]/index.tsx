@@ -4,13 +4,13 @@ import { Suspense } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 export default function PokemonDetail() {
-  const { pokemonName } = useLocalSearchParams();
+  const { pokemonName } = useLocalSearchParams<{ pokemonName: string }>();
 
   return (
     <>
       <Stack.Screen
         options={{
-          title: pokemonName as string,
+          title: pokemonName,
         }}
       />
       <Suspense
@@ -22,7 +22,7 @@ export default function PokemonDetail() {
           </View>
         }
       >
-        <PokemonDetailScreen pokemonName={pokemonName as string} />
+        <PokemonDetailScreen pokemonName={pokemonName} />
       </Suspense>
     </>
   );

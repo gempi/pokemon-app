@@ -1,6 +1,7 @@
 import { pokemonDetailQuery$data } from "@/src/__generated__/pokemonDetailQuery.graphql";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Abilities } from "./abilities";
 
 type Pokemon = pokemonDetailQuery$data["pokemon"];
 
@@ -67,19 +68,7 @@ export function PokemonDetail({ pokemon }: { pokemon: Pokemon }) {
       )}
 
       {/* Abilities */}
-      {pokemon.abilities && pokemon.abilities.length > 0 && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Abilities</Text>
-          {pokemon.abilities.map((ability: any, index: number) => (
-            <View key={index} style={styles.abilityRow}>
-              <Text style={styles.abilityName}>{ability?.ability?.name}</Text>
-              {ability?.is_hidden && (
-                <Text style={styles.hiddenBadge}>Hidden</Text>
-              )}
-            </View>
-          ))}
-        </View>
-      )}
+      <Abilities abilities={pokemon} />
     </ScrollView>
   );
 }
